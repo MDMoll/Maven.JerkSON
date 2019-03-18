@@ -11,22 +11,15 @@ import java.util.regex.Pattern;
 public class ItemParser {
     
     public List<Item> parseItemList(String valueToParse) {
-        ArrayList<String> output = itemSplitter(valueToParse);
-        return itemList(output);
+        return itemList(valueToParse);
     }
     
     public Item parseSingleItem(String singleItem) throws ItemParseException {
         return itemSeparator(singleItem);
     }
     
-    public static ArrayList<String> itemSplitter(String stringToSplit) {
-        ArrayList<String> splitItems = new ArrayList<>();
-        while (stringToSplit.contains("##")) {
-            String pattern = ("(.*)(##)");
-            Pattern p = Pattern.compile(pattern);
-            Matcher m = p.matcher(stringToSplit);
-            splitItems.add(m.group(1));
-        } return splitItems;
+    public static String[] itemSplitter(String stringToSplit) {
+        return stringToSplit.split("##");
     }
     
     public static Item itemSeparator(String input) throws ItemParseException {
@@ -44,16 +37,15 @@ public class ItemParser {
         }
     }
     
-    public static List<Item> itemList(ArrayList input) {
+    public static List<Item> itemList(String input) {
         List<Item> itemList = new ArrayList<>();
-        for (Object s : input) {
-            Item splitItem = null;
+        String[] output = itemSplitter(input);
+        for (String s : output) {
             try {
-                splitItem = itemSeparator((String)s);
+                itemList.add(itemSeparator(s));
             } catch (ItemParseException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
-            itemList.add(splitItem);
         }
         return itemList;
     }
