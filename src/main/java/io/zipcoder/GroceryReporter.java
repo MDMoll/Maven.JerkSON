@@ -8,9 +8,9 @@ public class GroceryReporter {
     public GroceryReporter(String jerksonFileName) {
         this.originalFileText = FileReader.readFile(jerksonFileName);
     }
-
+    
     @Override
     public String toString() {
-        return null;
+        return originalFileText;
     }
 }
