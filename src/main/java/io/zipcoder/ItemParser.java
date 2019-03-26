@@ -22,7 +22,8 @@ public class ItemParser {
         return stringToSplit.split("##");
     }
     
-    public static Item itemSeparator(String input) throws ItemParseException {
+    public static Item itemSeparator(String input) throws
+            ItemParseException {
         String pattern = ("(\\w+)([:@^*%])(\\w+);(\\w+)([:@^*%])((\\d*\\.)?\\d+);(\\w+)([:@^*%])(\\w+);(\\w+)([:@^*%])(\\d{1,2}/\\d{1,2}/\\d{4})(##)?");
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(input);
